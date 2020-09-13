@@ -1,0 +1,61 @@
+#include<iostream>
+#include<vector>
+#include<math.h>
+using namespace std;
+int main() {
+
+	int n;
+	cin >> n;
+	vector<double>arrayA;
+	vector<double>arrayB;
+	double sumA = 0;
+	double sumB = 0;
+
+	for (int i = 0; i < n; i++) {
+		double number;
+		cin >> number;
+		sumA += number;
+		arrayA.push_back(number);
+	}
+
+	for (int i = 0; i < n; i++) {
+		double number;
+		cin >> number;
+		sumB += number;
+		arrayB.push_back(number);
+	}
+
+	double meanA = sumA / n;
+	double meanB = sumB / n;
+	cout << "\n" << "meanA : " << meanA << "meanB : " << meanB << "\n";
+
+	double upper = 0;
+	for (int i = 0; i < n; i++) {
+		double num1 = arrayA.at(i) - meanA;
+		double num2 = arrayB.at(i) - meanB;
+		upper += num1 * num2;
+	}
+	double varianceA = 0;
+	double varianceB = 0;
+
+	for (int i = 0; i < n; i++) {
+		double ex;
+		ex = pow((meanA - arrayA.at(i)),2);
+		cout << arrayA.at(i) << "\t" << " 의 분산" << "\t" << ex << "\n";
+		varianceA += ex;
+	}
+	for (int i = 0; i < n; i++) {
+		double ex;
+		ex = pow((meanB - arrayB.at(i)),2);
+		cout << arrayB.at(i) << "\t" << " 의 분산" << "\t" << ex << "\n";
+		varianceB += ex;
+	}
+	cout << "\n" << "varianceA : " << varianceA/(n-1) << "\n";
+	cout << "\n" << "varianceB : " << varianceB/(n-1) << "\n"; 
+
+	double sA = sqrt((double)varianceA/(n-1));
+	double sB = sqrt((double)varianceB/(n-1));
+	cout << "upper : " << upper << "\n";
+	cout << "sA : " << sA << "sB : " << sB << "\n";
+	cout << "결과 : " << upper/(sA*sB*(n-1)) << "\n";
+}
